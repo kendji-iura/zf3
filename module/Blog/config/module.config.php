@@ -2,27 +2,30 @@
 
 namespace Blog;
 
-use Zend\Router\Http\Literal;
+use Blog\Controller\BlogController;
 use Zend\ServiceManager\Factory\InvokableFactory;
 
  
 return [
 
-
     'controllers' => [
         'factories' => [
-            Controlller\BlogController::class => InvokableFactory::class
+            #BlogController::class => InvokableFactory::class
         ]
     ],
     
     'router' => [
         'routes'=> [
-            'blog'=> [
-                'type'=> 'literal',
+            'post'=> [
+                'type'=> 'segment',
                 'options'=> [
-                    'route'=> '/blog',
+                    'route'=> '/blog[/:action[/:id]]',
+                    'constraints'=> [
+                        'action'=> '[a-zA-Z][a-zA-Z0-9_-]*',
+                        'id'=> '[0-9]+',
+                    ],
                     'defaults'=> [
-                        'controller'=> Controller\BlogController::class,
+                        'controller'=> BlogController::class,
                         'action'=> 'index'
                     ]
                 ]
