@@ -4,16 +4,30 @@ $this->headTitle("Blog");
 
 <h1>Blog</h1>
 
+<p>
+    <a href="<?=$this->url('post', ['action'=>'add']); ?>">
+        New Post
+    </a> 
+</p>
+
 <table class="table">
     <tr>
         <th>Title</th>
         <th>Content</th>
     </tr>
-    <?php foreach ($posts as $post): 
-    ?>
+    <?php foreach ($posts as $post): ?>
     <tr>
-        <td><?=$this->escapeHtml ($post->title); ?></td>
-        <td><?=$this->escapeHtml ($post->content); ?></td>
+        <td><?= $this->escapeHtml ($post->title); ?></td>
+        <td>
+            <a href="<?=$this->url('post', ['action'=>'edit', 'id'=>$post->id]);?>">
+        Edit Post
+            </a>
+        </td>
+        <td>
+            <a href="<?=$this->url('post', ['action' => 'delete', 'id' => $post->id]);?>">
+        Delete Post
+            </a>
+        </td>
     </tr>
     <?php endforeach; ?>
 </table>
